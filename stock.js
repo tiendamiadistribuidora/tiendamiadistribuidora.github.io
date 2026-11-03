@@ -3,10 +3,10 @@
 
    Cómo se usa:
    - "id": 5,   -> quedan 5 unidades (se muestra en la tarjeta y se limita la compra)
-   - "id": 0,   -> SIN STOCK (no se puede comprar)
+   - "id": 0,   -> SIN STOCK AÚN (no se puede comprar)
    - Producto con variantes (tonos, colores...): un número por opción:
        "id": { "Tono 1.0": 2, "Tono 2.0": 0 },
-   - Si un producto NO está en la lista, figura como SIN STOCK.
+   - Si un producto NO está en la lista, figura como "Sin stock aún".
      Cuando te llegue mercadería, agregalo acá con su cantidad.
 
    Para actualizar: cambiá el número, guardá y subí el archivo a GitHub.
@@ -41,7 +41,7 @@ const STOCK = {
   "spray-all-body-yara-150-ml": 1, // Spray all body Yara 150 ml
   "madagascar-centella-poremizing-mask": 1, // Madagascar Centella Poremizing Mask
 
-  /* ---- PRODUCTOS SIN STOCK (no tenían cantidad en el Excel) ----
+  /* ---- PRODUCTOS SIN STOCK AÚN (no tenían cantidad en el Excel) ----
      Cuando tengas unidades, sacá las // y poné la cantidad.
   "dermaglos-fps50": 0, // Protector Solar Corporal Dermaglós
   "bagovit-solar": 0, // Protector Solar Bagovit Solar Emulsión Hidratante
