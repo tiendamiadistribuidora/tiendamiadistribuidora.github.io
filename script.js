@@ -2,6 +2,9 @@
 // Cambiá este número por el WhatsApp de la tienda (código de país + área + número, sin + ni espacios)
 const WHATSAPP = "5491122942151";
 
+// Cantidad de productos para obtener envío gratis
+const ENVIO_GRATIS_DESDE = 5;
+
 const $ = (sel, ctx = document) => ctx.querySelector(sel);
 const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 const formatoPrecio = (n) => "$" + n.toLocaleString("es-AR");
@@ -47,7 +50,7 @@ const stockDe = (p, variante) => {
 };
 const etiquetaStock = (n) => {
   if (n === Infinity) return "";
-  if (n <= 0) return '<span class="stock agotado">Sin stock</span>';
+  if (n <= 0) return '<span class="stock agotado">Sin stock aún</span>';
   if (n === 1) return '<span class="stock poco">¡Última unidad!</span>';
   if (n <= 3) return `<span class="stock poco">¡Últimas ${n} unidades!</span>`;
   return `<span class="stock">${n} disponibles</span>`;
@@ -114,6 +117,10 @@ $("#layout-top").outerHTML = `
     <div class="panel-cabecera">
       <h2>Tu carrito</h2>
       <button class="btn-icono" id="cerrarCarrito" aria-label="Cerrar carrito">${ICONO_X}</button>
+    </div>
+    <div class="envio" id="envio">
+      <p class="envio-texto" id="envioTexto"></p>
+      <div class="barra" role="progressbar" aria-valuemin="0" aria-valuemax="${ENVIO_GRATIS_DESDE}" id="barra"><div class="barra-relleno" id="barraRelleno"></div></div>
     </div>
     <ul class="carrito-lista" id="carritoLista"></ul>
     <p class="carrito-vacio" id="carritoVacio">Todavía no agregaste productos.</p>
@@ -193,11 +200,13 @@ function guardar() {
 function agregar(producto, variante, cantidad = 1) {
   const clave = variante ? `${producto.id}|${variante}` : producto.id;
   const existente = carrito.find((i) => i.clave === clave);
+  if (stockDe(producto, variante || "") - (existente ? existente.cantidad : 0) < cantidad) return false; // sin stock
   if (existente) existente.cantidad += cantidad;
   else carrito.push({ clave, id: producto.id, nombre: producto.nombre, variante: variante || "",
     precio: producto.precio, imagen: producto.imagen, cantidad });
   guardar();
   dibujarCarrito();
+  return true;
 }
 
 function cambiarCantidad(clave, delta) {
@@ -251,10 +260,20 @@ function dibujarCarrito() {
   contador.classList.add("salto");
   $("#carritoTotal").textContent = formatoPrecio(total);
 
+  const faltan = Math.max(0, ENVIO_GRATIS_DESDE - unidades);
+  $("#barraRelleno").style.width = Math.min(100, (unidades / ENVIO_GRATIS_DESDE) * 100) + "%";
+  $("#barra").setAttribute("aria-valuenow", Math.min(unidades, ENVIO_GRATIS_DESDE));
+  $("#envio").classList.toggle("completo", faltan === 0);
+  $("#envioTexto").innerHTML = faltan === 0
+    ? "🎉 ¡Tenés <strong>envío gratis</strong>!"
+    : unidades === 0
+      ? `Llevate <strong>${ENVIO_GRATIS_DESDE} productos</strong> y el <strong>envío es gratis</strong>`
+      : `Te ${faltan === 1 ? "falta" : "faltan"} <strong>${faltan}</strong> producto${faltan === 1 ? "" : "s"} para el <strong>envío gratis</strong>`;
+
   const mensaje = carrito.length
     ? "Hola Mia Distribuidora! Quiero hacer este pedido:\n" +
       carrito.map((i) => `• ${i.cantidad} x ${i.nombre}${i.variante ? " (" + i.variante + ")" : ""} - ${formatoPrecio(i.precio * i.cantidad)}`).join("\n") +
-      `\nTotal: ${formatoPrecio(total)}`
+      `\nTotal: ${formatoPrecio(total)}` + (unidades >= ENVIO_GRATIS_DESDE ? "\nEnvío gratis incluido" : "")
     : "";
   const enlace = $("#finalizarPedido");
   enlace.href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
@@ -265,6 +284,15 @@ function dibujarCarrito() {
 $("#vaciarCarrito").addEventListener("click", () => { carrito = []; guardar(); dibujarCarrito(); });
 
 /* ===== Tarjeta de producto (para las grillas) ===== */
+const ICONO_CARRITO_MINI = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.6 12.4a1 1 0 0 0 1 .8h9.2a1 1 0 0 0 1-.8L21 7H6"/></svg>';
+
+function botonRapido(p, url, agotado) {
+  if (agotado) return "";
+  if (p.variante) return `<a class="btn-rapido" href="${url}">${ICONO_CARRITO_MINI} Elegir opción</a>`;
+  if (!(p.precio > 0)) return `<a class="btn-rapido" href="${url}">Consultar</a>`;
+  return `<button type="button" class="btn-rapido" data-agregar="${p.id}">${ICONO_CARRITO_MINI} Agregar</button>`;
+}
+
 function tarjeta(p) {
   const url = `producto.html?id=${encodeURIComponent(p.id)}`;
   const n = stockDe(p, "");
@@ -272,12 +300,27 @@ function tarjeta(p) {
   return `
     <article class="producto${agotado ? " agotado" : ""}">
       <a class="producto-foto" href="${url}" aria-label="Ver ${p.nombre}"><img src="${p.imagen}" alt="${p.nombre}" loading="lazy" ${imgAttrs(p)}></a>
+      ${botonRapido(p, url, agotado)}
       <h3 class="producto-nombre"><a href="${url}">${p.nombre}</a></h3>
       <p class="producto-precio">${precioTexto(p)}</p>
       ${etiquetaStock(n)}
-      <a class="btn-principal${agotado ? " btn-agotado" : ""}" href="${url}">${agotado ? "Sin stock" : "Comprar"}</a>
+      <a class="btn-principal${agotado ? " btn-agotado" : ""}" href="${url}">${agotado ? "Sin stock aún" : "Comprar"}</a>
     </article>`;
 }
+
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest("[data-agregar]");
+  if (!btn) return;
+  const p = PRODUCTOS.find((x) => x.id === btn.dataset.agregar);
+  if (!p) return;
+  const original = btn.dataset.html || btn.innerHTML;
+  btn.dataset.html = original;
+  const ok = agregar({ ...p }, "", 1);
+  btn.innerHTML = ok ? "✓ Agregado" : "Sin más stock";
+  btn.classList.toggle("ok", ok);
+  clearTimeout(btn._t);
+  btn._t = setTimeout(() => { btn.innerHTML = original; btn.classList.remove("ok"); }, 1300);
+});
 
 const params = new URLSearchParams(location.search);
 
@@ -334,8 +377,8 @@ if (document.body.dataset.pagina === "producto") {
           ${p.descripcion ? `<p class="detalle-desc">${p.descripcion}</p>` : ""}
           ${p.detalles && p.detalles.length ? `<ul class="detalle-lista">${p.detalles.map((d) => `<li>${d}</li>`).join("")}</ul>` : ""}
           ${v ? `<fieldset class="variantes"><legend>Elegí tu ${v.nombre.toLowerCase()}</legend>
-            <div class="chips">${v.opciones.map((o) => { const sn = stockDe(p, o); return `<button type="button" class="chip" aria-pressed="false" data-op="${o}"${sn <= 0 ? " disabled" : ""}>${o}${sn <= 0 ? " (sin stock)" : ""}</button>`; }).join("")}</div></fieldset>` : ""}
-          ${agotado ? `<button type="button" class="btn-principal btn-ancho btn-agotado" disabled>Sin stock</button>` : vendible ? `<div class="cantidad cantidad-detalle">
+            <div class="chips">${v.opciones.map((o) => { const sn = stockDe(p, o); return `<button type="button" class="chip" aria-pressed="false" data-op="${o}"${sn <= 0 ? " disabled" : ""}>${o}${sn <= 0 ? " (sin stock aún)" : ""}</button>`; }).join("")}</div></fieldset>` : ""}
+          ${agotado ? `<button type="button" class="btn-principal btn-ancho btn-agotado" disabled>Sin stock aún</button>` : vendible ? `<div class="cantidad cantidad-detalle">
             <button type="button" id="menos" aria-label="Quitar una unidad">−</button>
             <span id="cant">1</span>
             <button type="button" id="mas" aria-label="Agregar una unidad">+</button>

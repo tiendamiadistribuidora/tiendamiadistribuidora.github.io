@@ -492,3 +492,42 @@ img.sin-foto { object-fit: contain; padding: 22%; opacity: .55; }
 .btn-agotado, .btn-agotado:hover { background: #c9b9b9; cursor: default; }
 .btn-principal[disabled] { opacity: 1; }
 .chip:disabled { opacity: .45; text-decoration: line-through; cursor: not-allowed; }
+
+/* ===== Botón rápido de agregar (tarjetas) ===== */
+.btn-rapido {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  align-self: flex-end;
+  margin-top: 8px;
+  padding: 6px 12px;
+  border: 1.5px solid var(--rosa);
+  border-radius: 999px;
+  background: var(--blanco);
+  color: var(--bordo-oscuro);
+  font-size: 13px;
+  font-weight: 600;
+  transition: background .2s ease, color .2s ease, transform .1s ease;
+}
+
+.btn-rapido:hover { background: var(--rosa-fondo); }
+.btn-rapido:active { transform: scale(.96); }
+.btn-rapido.ok { background: var(--bordo); border-color: var(--bordo); color: var(--blanco); }
+
+/* ===== Barra de envío gratis (carrito) ===== */
+.envio { padding: 14px 16px 12px; background: var(--rosa-fondo); border-bottom: 1px solid var(--borde); }
+.envio-texto { margin: 0 0 10px; font-size: 13.5px; text-align: center; color: var(--bordo); }
+
+.barra { height: 12px; border-radius: 999px; background: #ecdada; overflow: hidden; }
+
+.barra-relleno {
+  height: 100%;
+  width: 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #f3a3b0, var(--rosa));
+  transition: width .5s ease;
+}
+
+.envio.completo .barra-relleno { background: linear-gradient(90deg, #7fbf8e, #4aa564); }
+.envio.completo .envio-texto { color: #2f7a47; font-weight: 600; }
