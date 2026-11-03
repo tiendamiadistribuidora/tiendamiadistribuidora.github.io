@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tienda Mia Distribuidora</title>
+  <meta name="theme-color" content="#f8dede">
+  <link rel="icon" type="image/png" href="imagenes/favicon.png">
+  <link rel="apple-touch-icon" href="imagenes/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Paytone+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-pagina="inicio">
+  <div id="layout-top"></div>
+
+  <main>
+    <section class="seccion" id="productos">
+      <h1 class="titulo-seccion" id="tituloSeccion">Nuestros productos</h1>
+      <div class="grilla" id="grilla"></div>
+      <p class="sin-resultados" id="sinResultados" hidden>No encontramos productos. Probá con otra búsqueda o categoría.</p>
+    </section>
+  </main>
+
+  <section class="testimonios" id="testimonios" hidden>
+    <h2 class="titulo-seccion">Lo que dicen nuestros clientes</h2>
+    <p class="testimonios-promedio" id="promedio"></p>
+    <div class="testimonios-lista" id="testimoniosLista"></div>
+  </section>
+
+  <div id="layout-pie"></div>
+  <script src="productos.js"></script>
+  <script src="testimonios.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

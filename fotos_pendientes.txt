@@ -1,0 +1,47 @@
+FOTOS PENDIENTES - guardá cada foto en la carpeta imagenes/ con EXACTAMENTE este nombre
+
+ProtectorSolarDermaglos50gFPS50.jpeg	<- Protector Solar Dermaglos 50g - FPS 50
+ProtectorSolarISDINCOLORFPS50.jpeg	<- Protector Solar ISDIN COLOR FPS 50
+ProtectorSolarRostroLaRochePosayFPS5050ml.jpeg	<- Protector Solar Rostro La Roche Posay FPS 50 - 50ml
+ProtectorSolarAntiManchasLaRochePosayFPS50.jpeg	<- Protector Solar Anti Manchas La Roche Posay - FPS 50
+GelBoosterFacialMedicube300Ml.jpeg	<- Gel Booster Facial Medicube 300 ml
+SerumFacialMedicubeRetinol.jpeg	<- Sérum Facial Medicube Retinol
+CollagenJellyCreamMedicure110Ml.jpeg	<- Collagen Jelly Cream Medicure 110 ml
+SprayAllBodyMayar150Ml.jpeg	<- Spray all body Mayar 150 ml
+BoosterProMedicubeMiniPink.jpeg	<- Booster Pro Medicube Mini Pink
+CorrectorDeOrejasRimmel7Ml.jpeg	<- Corrector de Orejas Rimmel 7 ml
+CorrectorRimmelMatchPerfectionX30Ml.jpeg	<- Corrector Rimmel Match Perfection x 30 ml
+ContornoMaybellineLifterStix.jpeg	<- Contorno Maybelline Lifter Stix
+LabialRevlonColorstayLimitlessMatte.jpeg	<- Labial Revlon Colorstay Limitless Matte
+LabialMatteMaybelline.jpeg	<- Labial Matte Maybelline
+LabialMaybellineSuperstayVinyl.jpeg	<- Labial Maybelline Superstay Vinyl
+CorrectorLOrealParis15AcidoHialuronico.jpeg	<- Corrector L'Oréal Paris 1,5% Acido Hialuronico
+ImprontaTratamientoCapital5En1X250Gr.jpeg	<- Impronta Tratamiento Capital 5 en 1 x 250 gr
+ProductosKarsell.jpeg	<- Productos Karsell
+ShampooMatizadorLaPuissanceX300Ml.jpeg	<- Shampoo Matizador La Puissance x 300 ml
+ShampooYAcondicionadorLaPuissanceX300Ml.jpeg	<- Shampoo y Acondicionador La Puissance x 300 ml
+PerfumeCapilarLaPuissance.jpeg	<- Perfume Capilar La Puissance
+ShampooRevitalizanteAbsolutLOrealParisX300Ml.jpeg	<- Shampoo Revitalizante Absolut L'Oréal Paris x 300 ml
+AcondicionadorParaCabelloDanadoLOrealParisX200Ml.jpeg	<- Acondicionador para Cabello Dañado L'Oréal Paris x 200 ml
+AceiteOleoDePaltaLaPuissance.jpeg	<- Aceite Oleo de Palta La Puissance
+AcquaDiGioiaDeGiorgioArmaniX100Ml.jpeg	<- Acqua Di Gioia de Giorgio Armani x 100 ml
+ShineKillerPrimerX20ml.jpeg	<- Shine Killer Primer x 20ml
+AcondicionadorAnticaidaKarsellX500Ml.jpeg	<- Acondicionador Anticaida Karsell x 500 ml
+MascaraNutritivaLaPuissanceX250Ml.jpeg	<- Mascara Nutritiva La Puissance x 250 ml
+SerumTripleAccionAntiSignosDeEdadLOrealParis.jpeg	<- Serum Triple Accion Anti-Signos de Edad L'Oréal Paris
+SerumAntiManchasLOrealParis.jpeg	<- Serum Anti Manchas L'Oréal Paris
+GelLimpiezaProfundaLOrealParis.jpeg	<- Gel Limpieza Profunda L'Oréal Paris
+LimpiadorPurificanteAntiImperfeccionesGarnierX200Ml.jpeg	<- Limpiador Purificante Anti Imperfecciones Garnier x 200 ml
+GlassSkinCremaLiquidaLOrealParis.jpeg	<- Glass Skin Crema Liquida L'Oréal Paris
+BarraAntitranspiranteCoconutSecretX45Gr.jpeg	<- Barra Antitranspirante Coconut Secret x 45 gr
+FotoprotectorUVISDINFPS50.jpeg	<- Fotoprotector UV ISDIN FPS 50
+ProtectorInvisibleVichyFPS50FluidoHidratante.jpeg	<- Protector Invisible Vichy FPS 50 Fluido Hidratante
+ProtectorFluidoInvisibleCeraVeFPS50X50Ml.jpeg	<- Protector Fluido Invisible CeraVe FPS 50 x 50 ml
+ProtectorSolarFacialAvenoFPS50X50Gr.jpeg	<- Protector Solar Facial Aveno FPS 50 x 50 gr
+ProtectorSolarUVSportLaRochePosayFPS50.jpeg	<- Protector Solar UV Sport La Roche Posay FPS 50
+ProtectorSolarFacialConColorFPS45Bagovit.jpeg	<- Protector Solar Facial con Color FPS 45 Bagovit
+TratamientoCapilarRepairAbsoluteLOrealParis.jpeg	<- Tratamiento Capilar Repair Absolute L'Oréal Paris
+BarraCeraVeStickSolarInvisible.jpeg	<- Barra CeraVe Stick Solar Invisible
+CremaCorporalTripleEffectEucerin.jpeg	<- Crema Corporal Triple Effect Eucerin
+SprayAllBodyYara150Ml.jpeg	<- Spray all body Yara 150 ml
+MadagascarCentellaPoremizingMask.jpeg	<- Madagascar Centella Poremizing Mask
