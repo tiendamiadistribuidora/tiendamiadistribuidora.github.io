@@ -37,20 +37,30 @@ const FLECHA = '<svg class="flecha" viewBox="0 0 24 24" width="18" height="18" f
 /* ===== Stock (se edita en stock.js) ===== */
 const stockDe = (p, variante) => {
   const s = typeof STOCK !== "undefined" ? STOCK[p.id] : undefined;
-  if (s === undefined || s === null) return Infinity; // sin control de stock
+  if (typeof STOCK === "undefined") return Infinity; // por si stock.js no cargó
+  if (s === undefined || s === null) return 0; // no figura en stock.js = sin stock
   if (typeof s === "object") {
-    if (variante) return s[variante] === undefined ? Infinity : s[variante];
+    if (variante) return s[variante] === undefined ? 0 : s[variante];
     return Object.values(s).reduce((a, b) => a + b, 0);
   }
   return s;
 };
 const etiquetaStock = (n) => {
   if (n === Infinity) return "";
-  if (n <= 0) return '<span class="stock agotado">Agotado</span>';
+  if (n <= 0) return '<span class="stock agotado">Sin stock</span>';
   if (n === 1) return '<span class="stock poco">¡Última unidad!</span>';
   if (n <= 3) return `<span class="stock poco">¡Últimas ${n} unidades!</span>`;
   return `<span class="stock">${n} disponibles</span>`;
 };
+
+const ordenar = (lista) =>
+  lista
+    .map((p, i) => ({ p, i }))
+    .sort((a, b) =>
+      (stockDe(b.p, "") > 0) - (stockDe(a.p, "") > 0) ||
+      (b.p.prioridad || 0) - (a.p.prioridad || 0) ||
+      a.i - b.i)
+    .map((x) => x.p);
 
 /* ===== Encabezado, menú, carrito y pie (iguales en todas las páginas) ===== */
 $("#layout-top").outerHTML = `
@@ -265,7 +275,7 @@ function tarjeta(p) {
       <h3 class="producto-nombre"><a href="${url}">${p.nombre}</a></h3>
       <p class="producto-precio">${precioTexto(p)}</p>
       ${etiquetaStock(n)}
-      <a class="btn-principal${agotado ? " btn-agotado" : ""}" href="${url}">${agotado ? "Agotado" : "Comprar"}</a>
+      <a class="btn-principal${agotado ? " btn-agotado" : ""}" href="${url}">${agotado ? "Sin stock" : "Comprar"}</a>
     </article>`;
 }
 
@@ -275,7 +285,7 @@ const params = new URLSearchParams(location.search);
 if (document.body.dataset.pagina === "inicio") {
   const cat = params.get("cat");
   const q = (params.get("q") || "").trim().toLowerCase();
-  let lista = PRODUCTOS;
+  let lista = ordenar(PRODUCTOS);
   let titulo = "Nuestros productos";
 
   if (cat && cat !== "todos") { lista = lista.filter((p) => p.categorias.includes(cat)); titulo = CATEGORIAS[cat] || "Productos"; }
@@ -324,8 +334,8 @@ if (document.body.dataset.pagina === "producto") {
           ${p.descripcion ? `<p class="detalle-desc">${p.descripcion}</p>` : ""}
           ${p.detalles && p.detalles.length ? `<ul class="detalle-lista">${p.detalles.map((d) => `<li>${d}</li>`).join("")}</ul>` : ""}
           ${v ? `<fieldset class="variantes"><legend>Elegí tu ${v.nombre.toLowerCase()}</legend>
-            <div class="chips">${v.opciones.map((o) => { const sn = stockDe(p, o); return `<button type="button" class="chip" aria-pressed="false" data-op="${o}"${sn <= 0 ? " disabled" : ""}>${o}${sn <= 0 ? " (agotado)" : ""}</button>`; }).join("")}</div></fieldset>` : ""}
-          ${agotado ? `<button type="button" class="btn-principal btn-ancho btn-agotado" disabled>Agotado</button>` : vendible ? `<div class="cantidad cantidad-detalle">
+            <div class="chips">${v.opciones.map((o) => { const sn = stockDe(p, o); return `<button type="button" class="chip" aria-pressed="false" data-op="${o}"${sn <= 0 ? " disabled" : ""}>${o}${sn <= 0 ? " (sin stock)" : ""}</button>`; }).join("")}</div></fieldset>` : ""}
+          ${agotado ? `<button type="button" class="btn-principal btn-ancho btn-agotado" disabled>Sin stock</button>` : vendible ? `<div class="cantidad cantidad-detalle">
             <button type="button" id="menos" aria-label="Quitar una unidad">−</button>
             <span id="cant">1</span>
             <button type="button" id="mas" aria-label="Agregar una unidad">+</button>
@@ -380,7 +390,7 @@ if (document.body.dataset.pagina === "producto") {
     });
 
     /* Productos similares: misma categoría primero, luego el resto */
-    const otros = PRODUCTOS.filter((x) => x.id !== p.id);
+    const otros = ordenar(PRODUCTOS.filter((x) => x.id !== p.id));
     const mismos = otros.filter((x) => x.categorias.some((c) => p.categorias.includes(c)));
     const similares = [...mismos, ...otros.filter((x) => !mismos.includes(x))].slice(0, 4);
     if (similares.length) {

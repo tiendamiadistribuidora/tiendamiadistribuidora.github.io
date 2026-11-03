@@ -34,6 +34,7 @@ const PRODUCTOS = [
   },
   {
     id: "cicaplast-baume",
+    prioridad: 10,
     nombre: "Bálsamo Cicaplast La Roche Posay Baume",
     precio: 55000,
     categorias: ["skincare"],
@@ -47,10 +48,13 @@ const PRODUCTOS = [
     variante: null,
   },
 
-  /* precio: 0         -> la tienda muestra "Consultar precio" y el cliente te escribe por WhatsApp.
+  /* prioridad: número más alto = aparece antes en la tienda (entre los que tienen stock).
+                       Los productos sin stock siempre van al final.
+     precio: 0         -> la tienda muestra "Consultar precio" y el cliente te escribe por WhatsApp.
      variante.precios  -> (opcional) un precio distinto por cada opción. */
   {
     id: "celimax-sun-stick",
+    prioridad: 10,
     nombre: "Protector Solar en Barra Celimax Oil Control",
     precio: 45000,
     categorias: ["skincare", "protectores-solares"],
@@ -82,6 +86,7 @@ const PRODUCTOS = [
   },
   {
     id: "loreal-glycolic-bright",
+    prioridad: 10,
     nombre: "Crema Mate-Iluminadora L'Oréal Paris Glycolic-Bright",
     precio: 35000,
     categorias: ["skincare"],
@@ -97,6 +102,7 @@ const PRODUCTOS = [
   },
   {
     id: "cerave-locion-intensiva",
+    prioridad: 10,
     nombre: "Loción de Hidratación Intensiva CeraVe",
     precio: 32000,
     categorias: ["skincare"],
@@ -113,6 +119,7 @@ const PRODUCTOS = [
   },
   {
     id: "aveno-jabon-diario",
+    prioridad: 10,
     nombre: "Jabón de Uso Diario Aveno",
     precio: 12000,
     categorias: ["skincare"],
@@ -132,6 +139,7 @@ const PRODUCTOS = [
   /* ===== PRODUCTOS IMPORTADOS DEL EXCEL ===== */
   {
     id: "protector-solar-dermaglos-50g-or-fps-50",
+    prioridad: 7,
     nombre: "Protector Solar Dermaglos 50g - FPS 50",
     precio: 21000,
     categorias: [
@@ -213,6 +221,7 @@ const PRODUCTOS = [
   },
   {
     id: "gel-booster-facial-medicube-300-ml",
+    prioridad: 9,
     nombre: "Gel Booster Facial Medicube 300 ml",
     precio: 45000,
     categorias: [
@@ -225,6 +234,7 @@ const PRODUCTOS = [
   },
   {
     id: "sedum-facial-medicube-retinol",
+    prioridad: 9,
     nombre: "Sérum Facial Medicube Retinol",
     precio: 45000,
     categorias: [
@@ -237,6 +247,7 @@ const PRODUCTOS = [
   },
   {
     id: "collagen-jelly-cream-medicure-110-ml",
+    prioridad: 9,
     nombre: "Collagen Jelly Cream Medicure 110 ml",
     precio: 49000,
     categorias: [
@@ -261,6 +272,7 @@ const PRODUCTOS = [
   },
   {
     id: "booster-pro-medicube-mini-pink",
+    prioridad: 9,
     nombre: "Booster Pro Medicube Mini Pink",
     precio: 180000,
     categorias: [
@@ -309,6 +321,7 @@ const PRODUCTOS = [
   },
   {
     id: "labial-revlon-colorstay-limitless-matte",
+    prioridad: 8,
     nombre: "Labial Revlon Colorstay Limitless Matte",
     precio: 25000,
     categorias: [
@@ -321,6 +334,7 @@ const PRODUCTOS = [
   },
   {
     id: "labial-matte-maybelline",
+    prioridad: 8,
     nombre: "Labial Matte Maybelline",
     precio: 25000,
     categorias: [
@@ -333,6 +347,7 @@ const PRODUCTOS = [
   },
   {
     id: "labial-maybelline-superstay-vinyl",
+    prioridad: 8,
     nombre: "Labial Maybelline Superstay Vinyl",
     precio: 25000,
     categorias: [
@@ -345,6 +360,7 @@ const PRODUCTOS = [
   },
   {
     id: "corrector-loreal-paris-15percent-acido-hialuronico",
+    prioridad: 8,
     nombre: "Corrector L'Oréal Paris 1,5% Acido Hialuronico",
     precio: 22000,
     categorias: [
@@ -377,6 +393,7 @@ const PRODUCTOS = [
   },
   {
     id: "acondicionador-karsell",
+    prioridad: 6,
     nombre: "Productos Karsell",
     precio: 16000,
     categorias: [
@@ -401,6 +418,7 @@ const PRODUCTOS = [
   },
   {
     id: "shampoo-matizador-la-puissance-x-300-ml",
+    prioridad: 6,
     nombre: "Shampoo Matizador La Puissance x 300 ml",
     precio: 21000,
     categorias: [
@@ -431,6 +449,7 @@ const PRODUCTOS = [
   },
   {
     id: "perfume-capilar-la-puissance",
+    prioridad: 6,
     nombre: "Perfume Capilar La Puissance",
     precio: 11900,
     categorias: [
@@ -443,6 +462,7 @@ const PRODUCTOS = [
   },
   {
     id: "shampoo-reparador-absolut-loreal-paris-x-300-ml",
+    prioridad: 6,
     nombre: "Shampoo Revitalizante Absolut L'Oréal Paris x 300 ml",
     precio: 45000,
     categorias: [
@@ -455,6 +475,7 @@ const PRODUCTOS = [
   },
   {
     id: "acondicionador-para-cabello-danado-loreal-paris-x-200-ml",
+    prioridad: 6,
     nombre: "Acondicionador para Cabello Dañado L'Oréal Paris x 200 ml",
     precio: 45000,
     categorias: [
@@ -527,6 +548,7 @@ const PRODUCTOS = [
   },
   {
     id: "serum-triple-accion-anti-signos-de-edad-revitalift",
+    prioridad: 7,
     nombre: "Serum Triple Accion Anti-Signos de Edad L'Oréal Paris",
     precio: 37000,
     categorias: [
@@ -539,6 +561,7 @@ const PRODUCTOS = [
   },
   {
     id: "serum-anti-manchas-loreal-paris",
+    prioridad: 7,
     nombre: "Serum Anti Manchas L'Oréal Paris",
     precio: 28000,
     categorias: [
@@ -702,6 +725,7 @@ const PRODUCTOS = [
   },
   {
     id: "crema-corporal-triple-effect-eucerin",
+    prioridad: 7,
     nombre: "Crema Corporal Triple Effect Eucerin",
     precio: 55000,
     categorias: [
@@ -718,6 +742,7 @@ const PRODUCTOS = [
   },
   {
     id: "spray-all-body-yara-150-ml",
+    prioridad: 7,
     nombre: "Spray all body Yara 150 ml",
     precio: 29000,
     categorias: [
@@ -730,6 +755,7 @@ const PRODUCTOS = [
   },
   {
     id: "madagascar-centella-poremizing-mask",
+    prioridad: 7,
     nombre: "Madagascar Centella Poremizing Mask",
     precio: 45000,
     categorias: [
