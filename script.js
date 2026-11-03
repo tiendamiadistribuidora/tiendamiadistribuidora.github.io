@@ -34,6 +34,24 @@ const consulta = (p, variante) => `https://wa.me/${WHATSAPP}?text=${encodeURICom
 const ICONO_X = '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg>';
 const FLECHA = '<svg class="flecha" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
 
+/* ===== Stock (se edita en stock.js) ===== */
+const stockDe = (p, variante) => {
+  const s = typeof STOCK !== "undefined" ? STOCK[p.id] : undefined;
+  if (s === undefined || s === null) return Infinity; // sin control de stock
+  if (typeof s === "object") {
+    if (variante) return s[variante] === undefined ? Infinity : s[variante];
+    return Object.values(s).reduce((a, b) => a + b, 0);
+  }
+  return s;
+};
+const etiquetaStock = (n) => {
+  if (n === Infinity) return "";
+  if (n <= 0) return '<span class="stock agotado">Agotado</span>';
+  if (n === 1) return '<span class="stock poco">¡Última unidad!</span>';
+  if (n <= 3) return `<span class="stock poco">¡Últimas ${n} unidades!</span>`;
+  return `<span class="stock">${n} disponibles</span>`;
+};
+
 /* ===== Encabezado, menú, carrito y pie (iguales en todas las páginas) ===== */
 $("#layout-top").outerHTML = `
   <header class="encabezado">
@@ -151,6 +169,12 @@ $$(".menu-toggle").forEach((btn) => {
 let carrito = [];
 try { carrito = JSON.parse(localStorage.getItem("mia-carrito")) || []; } catch (e) { carrito = []; }
 carrito.forEach((i) => { i.clave = i.clave || i.id; });
+carrito = carrito.filter((i) => {
+  const p = PRODUCTOS.find((x) => x.id === i.id);
+  if (!p) return false;
+  i.cantidad = Math.min(i.cantidad, stockDe(p, i.variante));
+  return i.cantidad > 0;
+});
 
 function guardar() {
   try { localStorage.setItem("mia-carrito", JSON.stringify(carrito)); } catch (e) { /* sin almacenamiento */ }
@@ -169,6 +193,10 @@ function agregar(producto, variante, cantidad = 1) {
 function cambiarCantidad(clave, delta) {
   const item = carrito.find((i) => i.clave === clave);
   if (!item) return;
+  if (delta > 0) {
+    const prod = PRODUCTOS.find((x) => x.id === item.id);
+    if (prod && item.cantidad + delta > stockDe(prod, item.variante)) return; // no hay más stock
+  }
   item.cantidad += delta;
   if (item.cantidad <= 0) carrito = carrito.filter((i) => i.clave !== clave);
   guardar();
@@ -229,12 +257,15 @@ $("#vaciarCarrito").addEventListener("click", () => { carrito = []; guardar(); d
 /* ===== Tarjeta de producto (para las grillas) ===== */
 function tarjeta(p) {
   const url = `producto.html?id=${encodeURIComponent(p.id)}`;
+  const n = stockDe(p, "");
+  const agotado = n <= 0;
   return `
-    <article class="producto">
+    <article class="producto${agotado ? " agotado" : ""}">
       <a class="producto-foto" href="${url}" aria-label="Ver ${p.nombre}"><img src="${p.imagen}" alt="${p.nombre}" loading="lazy" ${imgAttrs(p)}></a>
       <h3 class="producto-nombre"><a href="${url}">${p.nombre}</a></h3>
       <p class="producto-precio">${precioTexto(p)}</p>
-      <a class="btn-principal" href="${url}">Comprar</a>
+      ${etiquetaStock(n)}
+      <a class="btn-principal${agotado ? " btn-agotado" : ""}" href="${url}">${agotado ? "Agotado" : "Comprar"}</a>
     </article>`;
 }
 
@@ -282,17 +313,19 @@ if (document.body.dataset.pagina === "producto") {
     document.title = `${p.nombre} | Tienda Mia Distribuidora`;
     const v = p.variante;
     const vendible = p.precio > 0;
+    const agotado = stockDe(p, "") <= 0;
     cont.innerHTML = `
       <article class="detalle">
         <div class="detalle-foto"><img src="${p.imagen}" alt="${p.nombre}" ${imgAttrs(p)}></div>
         <div class="detalle-info">
           <h1 class="detalle-nombre">${p.nombre}</h1>
           <p class="detalle-precio" id="precioDetalle">${precioTexto(p)}</p>
+          <p class="stock-detalle" id="stockDetalle">${etiquetaStock(stockDe(p, ""))}</p>
           ${p.descripcion ? `<p class="detalle-desc">${p.descripcion}</p>` : ""}
           ${p.detalles && p.detalles.length ? `<ul class="detalle-lista">${p.detalles.map((d) => `<li>${d}</li>`).join("")}</ul>` : ""}
           ${v ? `<fieldset class="variantes"><legend>Elegí tu ${v.nombre.toLowerCase()}</legend>
-            <div class="chips">${v.opciones.map((o) => `<button type="button" class="chip" aria-pressed="false">${o}</button>`).join("")}</div></fieldset>` : ""}
-          ${vendible ? `<div class="cantidad cantidad-detalle">
+            <div class="chips">${v.opciones.map((o) => { const sn = stockDe(p, o); return `<button type="button" class="chip" aria-pressed="false" data-op="${o}"${sn <= 0 ? " disabled" : ""}>${o}${sn <= 0 ? " (agotado)" : ""}</button>`; }).join("")}</div></fieldset>` : ""}
+          ${agotado ? `<button type="button" class="btn-principal btn-ancho btn-agotado" disabled>Agotado</button>` : vendible ? `<div class="cantidad cantidad-detalle">
             <button type="button" id="menos" aria-label="Quitar una unidad">−</button>
             <span id="cant">1</span>
             <button type="button" id="mas" aria-label="Agregar una unidad">+</button>
@@ -306,23 +339,37 @@ if (document.body.dataset.pagina === "producto") {
     let elegida = "";
     let cantidad = 1;
     const aviso = $("#aviso");
+    const claveActual = () => (elegida ? `${p.id}|${elegida}` : p.id);
+    const enCarrito = () => (carrito.find((i) => i.clave === claveActual()) || { cantidad: 0 }).cantidad;
+    const disponible = () => stockDe(p, elegida) - enCarrito();
 
     $$(".chip").forEach((chip) => chip.addEventListener("click", () => {
       $$(".chip").forEach((c) => { c.classList.remove("activo"); c.setAttribute("aria-pressed", "false"); });
       chip.classList.add("activo");
       chip.setAttribute("aria-pressed", "true");
-      elegida = chip.textContent;
-      if (!vendible) $("#consultar").href = consulta(p, elegida);
+      elegida = chip.dataset.op;
+      if (!vendible) { const c = $("#consultar"); if (c) c.href = consulta(p, elegida); }
       else $("#precioDetalle").textContent = formatoPrecio(precioDe(p, elegida)) + ",00";
+      $("#stockDetalle").innerHTML = etiquetaStock(stockDe(p, elegida));
+      cantidad = 1;
+      if ($("#cant")) $("#cant").textContent = 1;
       aviso.textContent = "";
     }));
 
-    if (vendible) $("#mas").addEventListener("click", () => { cantidad++; $("#cant").textContent = cantidad; });
-    if (vendible) $("#menos").addEventListener("click", () => { cantidad = Math.max(1, cantidad - 1); $("#cant").textContent = cantidad; });
+    if (vendible && !agotado) $("#mas").addEventListener("click", () => {
+      if (cantidad < disponible()) { cantidad++; $("#cant").textContent = cantidad; aviso.textContent = ""; }
+      else { aviso.textContent = "No hay más unidades disponibles."; aviso.classList.add("error"); }
+    });
+    if (vendible && !agotado) $("#menos").addEventListener("click", () => { cantidad = Math.max(1, cantidad - 1); $("#cant").textContent = cantidad; });
 
-    if (vendible) $("#agregar").addEventListener("click", () => {
+    if (vendible && !agotado) $("#agregar").addEventListener("click", () => {
       if (v && !elegida) {
         aviso.textContent = `Elegí un ${v.nombre.toLowerCase()} antes de agregar.`;
+        aviso.classList.add("error");
+        return;
+      }
+      if (cantidad > disponible()) {
+        aviso.textContent = disponible() > 0 ? `Solo podés agregar ${disponible()} más.` : "Ya tenés en el carrito todas las unidades disponibles.";
         aviso.classList.add("error");
         return;
       }

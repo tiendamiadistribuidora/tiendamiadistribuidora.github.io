@@ -481,3 +481,14 @@ img.sin-foto { object-fit: contain; padding: 22%; opacity: .55; }
 @media (min-width: 1024px) {
   .testimonios-lista { grid-template-columns: repeat(3, 1fr); }
 }
+
+/* ===== Stock ===== */
+.stock { display: block; margin: -4px 0 12px; font-size: 13px; color: #7a6a6a; }
+.stock.poco { color: #b3591f; font-weight: 600; }
+.stock.agotado { color: #b3263e; font-weight: 700; }
+.stock-detalle { margin: -6px 0 14px; }
+.stock-detalle .stock { margin: 0; font-size: 14px; }
+.producto.agotado .producto-foto img { opacity: .5; filter: grayscale(.6); }
+.btn-agotado, .btn-agotado:hover { background: #c9b9b9; cursor: default; }
+.btn-principal[disabled] { opacity: 1; }
+.chip:disabled { opacity: .45; text-decoration: line-through; cursor: not-allowed; }
