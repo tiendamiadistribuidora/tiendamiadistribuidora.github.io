@@ -15,7 +15,20 @@ const precioTexto = (p) => {
   const distintos = p.variante && p.variante.precios && new Set(p.variante.precios).size > 1;
   return (distintos ? "Desde " : "") + formatoPrecio(p.precio) + ",00";
 };
-const FOTO_FALTA = `onerror="this.onerror=null;this.src='imagenes/LogoMiaDistribuidora.png';this.classList.add('sin-foto')"`;
+/* Si una foto no carga, prueba nombres alternativos (otra extensión) y por último muestra el logo */
+function fotoFalla(img) {
+  const lista = (img.dataset.alt || "").split("|").filter(Boolean);
+  const n = Number(img.dataset.n || 0);
+  if (n < lista.length) { img.dataset.n = n + 1; img.src = lista[n]; return; }
+  img.onerror = null;
+  img.src = "imagenes/LogoMiaDistribuidora.png";
+  img.classList.add("sin-foto");
+}
+const imgAttrs = (p) => {
+  const swap = p.imagen.replace(/\.jpe?g$/i, (e) => (e.toLowerCase() === ".jpeg" ? ".jpg" : ".jpeg"));
+  const alt = [...(p.imagenAlt || []), swap].filter((x) => x !== p.imagen);
+  return `data-alt="${alt.join("|")}" onerror="fotoFalla(this)"`;
+};
 const consulta = (p, variante) => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(
   `Hola Mia Distribuidora! Quiero consultar el precio de: ${p.nombre}${variante ? " (" + variante + ")" : ""}`)}`;
 const ICONO_X = '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg>';
@@ -170,7 +183,7 @@ function dibujarCarrito() {
     const li = document.createElement("li");
     li.className = "carrito-item";
     li.innerHTML = `
-      <img src="${item.imagen}" alt="">
+      <img src="${item.imagen}" alt="" onerror="this.onerror=null;this.src='imagenes/LogoMiaDistribuidora.png'">
       <div>
         <h4>${item.nombre}${item.variante ? `<small>${item.variante}</small>` : ""}</h4>
         <span class="precio">${formatoPrecio(item.precio * item.cantidad)}</span>
@@ -218,7 +231,7 @@ function tarjeta(p) {
   const url = `producto.html?id=${encodeURIComponent(p.id)}`;
   return `
     <article class="producto">
-      <a class="producto-foto" href="${url}" aria-label="Ver ${p.nombre}"><img src="${p.imagen}" alt="${p.nombre}" loading="lazy" ${FOTO_FALTA}></a>
+      <a class="producto-foto" href="${url}" aria-label="Ver ${p.nombre}"><img src="${p.imagen}" alt="${p.nombre}" loading="lazy" ${imgAttrs(p)}></a>
       <h3 class="producto-nombre"><a href="${url}">${p.nombre}</a></h3>
       <p class="producto-precio">${precioTexto(p)}</p>
       <a class="btn-principal" href="${url}">Comprar</a>
@@ -271,7 +284,7 @@ if (document.body.dataset.pagina === "producto") {
     const vendible = p.precio > 0;
     cont.innerHTML = `
       <article class="detalle">
-        <div class="detalle-foto"><img src="${p.imagen}" alt="${p.nombre}" ${FOTO_FALTA}></div>
+        <div class="detalle-foto"><img src="${p.imagen}" alt="${p.nombre}" ${imgAttrs(p)}></div>
         <div class="detalle-info">
           <h1 class="detalle-nombre">${p.nombre}</h1>
           <p class="detalle-precio" id="precioDetalle">${precioTexto(p)}</p>
