@@ -47,7 +47,7 @@ const STOCK = {
   "loreal-glycolic-bright": 0, // Crema Mate-Iluminadora L'Oréal Paris Glycolic-Bright
   "protector-solar-isdin-fps-50": 0, // Protector Solar ISDIN COLOR FPS 50
   "protector-solar-rostrola-roche-posay-fps-50-or-50ml": 0, // Protector Solar Rostro La Roche Posay FPS 50 - 50ml
-  "protector-solar-anti-manchas-la-roche-posay-or-fps-50": 0, // Protector Solar Anti Manchas La Roche Posay - FPS 50
+  "protector-solar-anti-manchas-la-roche-posay-or-fps-50": 1, // Protector Solar Anti Manchas La Roche Posay - FPS 50
   "spray-all-body-mayar-150-ml": 0, // Spray all body Mayar 150 ml
   "corrector-de-orejas-rimmel-7-ml": 0, // Corrector de Orejas Rimmel 7 ml
   "corrector-rimmel-match-perfection-x-30-ml": 0, // Corrector Rimmel Match Perfection x 30 ml
