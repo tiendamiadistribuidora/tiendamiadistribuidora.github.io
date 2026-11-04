@@ -42,31 +42,31 @@ const STOCK = {
   "madagascar-centella-poremizing-mask": 1, // Madagascar Centella Poremizing Mask
 
   // ---- PRODUCTOS SIN STOCK AÚN: cuando tengas unidades, cambiá el 0 por la cantidad ----
-  "dermaglos-fps50": 0, // Protector Solar Corporal Dermaglós
-  "bagovit-solar": 0, // Protector Solar Bagovit Solar Emulsión Hidratante
-  "loreal-glycolic-bright": 0, // Crema Mate-Iluminadora L'Oréal Paris Glycolic-Bright
-  "protector-solar-isdin-fps-50": 0, // Protector Solar ISDIN COLOR FPS 50
-  "protector-solar-rostrola-roche-posay-fps-50-or-50ml": 0, // Protector Solar Rostro La Roche Posay FPS 50 - 50ml
+  "dermaglos-fps50": 1, // Protector Solar Corporal Dermaglós
+  "bagovit-solar": 1, // Protector Solar Bagovit Solar Emulsión Hidratante
+  "loreal-glycolic-bright": 1, // Crema Mate-Iluminadora L'Oréal Paris Glycolic-Bright
+  "protector-solar-isdin-fps-50": 1, // Protector Solar ISDIN COLOR FPS 50
+  "protector-solar-rostrola-roche-posay-fps-50-or-50ml": 1, // Protector Solar Rostro La Roche Posay FPS 50 - 50ml
   "protector-solar-anti-manchas-la-roche-posay-or-fps-50": 1, // Protector Solar Anti Manchas La Roche Posay - FPS 50
-  "spray-all-body-mayar-150-ml": 0, // Spray all body Mayar 150 ml
-  "corrector-de-orejas-rimmel-7-ml": 0, // Corrector de Orejas Rimmel 7 ml
-  "corrector-rimmel-match-perfection-x-30-ml": 0, // Corrector Rimmel Match Perfection x 30 ml
-  "aceite-oleo-de-palta-la-puissance": 0, // Aceite Oleo de Palta La Puissance
-  "acqua-di-gioia-de-giorgio-armani-x-100-ml": 0, // Acqua Di Gioia de Giorgio Armani x 100 ml
-  "shine-killer-primer-x-20ml": 0, // Shine Killer Primer x 20ml
-  "acondicionador-anticaida-karsell-x-500-ml": 0, // Acondicionador Anticaida Karsell x 500 ml
-  "mascara-nutritiva-la-puissance-x-250-ml": 0, // Mascara Nutritiva La Puissance x 250 ml
-  "gel-limpieza-profunda-loreal-paris": 0, // Gel Limpieza Profunda L'Oréal Paris
-  "glass-skin-crema-liquida-loreal-paris": 0, // Glass Skin Crema Liquida L'Oréal Paris
-  "barra-antitranspirante-coconut-secret-x-45-gr": 0, // Barra Antitranspirante Coconut Secret x 45 gr
-  "fotoprotector-uv-water-isdin-fps-50": 0, // Fotoprotector UV ISDIN FPS 50
-  "protector-invisible-vichy-fps-50-fluido-hidratante": 0, // Protector Invisible Vichy FPS 50 Fluido Hidratante
-  "protector-fluido-invisible-cerave-fps-50-x-50-ml": 0, // Protector Fluido Invisible CeraVe FPS 50 x 50 ml
-  "protector-solar-facial-aveno-fps-50-x-50-gr": 0, // Protector Solar Facial Aveno FPS 50 x 50 gr
-  "protector-solar-uv-sport-la-roche-posay-fps-50": 0, // Protector Solar UV Sport La Roche Posay FPS 50
-  "protector-solar-facial-con-color-fps-45-bagovit": 0, // Protector Solar Facial con Color FPS 45 Bagovit
-  "tratamiento-capiral-repair-absolute-loreal-paris": 0, // Tratamiento Capilar Repair Absolute L'Oréal Paris
-  "barra-cerave-stick-solar-invisible": 0, // Barra CeraVe Stick Solar Invisible
+  "spray-all-body-mayar-150-ml": 1, // Spray all body Mayar 150 ml
+  "corrector-de-orejas-rimmel-7-ml": 1, // Corrector de Orejas Rimmel 7 ml
+  "corrector-rimmel-match-perfection-x-30-ml": 1, // Corrector Rimmel Match Perfection x 30 ml
+  "aceite-oleo-de-palta-la-puissance": 1, // Aceite Oleo de Palta La Puissance
+  "acqua-di-gioia-de-giorgio-armani-x-100-ml": 1, // Acqua Di Gioia de Giorgio Armani x 100 ml
+  "shine-killer-primer-x-20ml": 1, // Shine Killer Primer x 20ml
+  "acondicionador-anticaida-karsell-x-500-ml": 1, // Acondicionador Anticaida Karsell x 500 ml
+  "mascara-nutritiva-la-puissance-x-250-ml": 1, // Mascara Nutritiva La Puissance x 250 ml
+  "gel-limpieza-profunda-loreal-paris": 1, // Gel Limpieza Profunda L'Oréal Paris
+  "glass-skin-crema-liquida-loreal-paris": 1, // Glass Skin Crema Liquida L'Oréal Paris
+  "barra-antitranspirante-coconut-secret-x-45-gr": 1, // Barra Antitranspirante Coconut Secret x 45 gr
+  "fotoprotector-uv-water-isdin-fps-50": 1, // Fotoprotector UV ISDIN FPS 50
+  "protector-invisible-vichy-fps-50-fluido-hidratante": 1, // Protector Invisible Vichy FPS 50 Fluido Hidratante
+  "protector-fluido-invisible-cerave-fps-50-x-50-ml": 1, // Protector Fluido Invisible CeraVe FPS 50 x 50 ml
+  "protector-solar-facial-aveno-fps-50-x-50-gr": 1, // Protector Solar Facial Aveno FPS 50 x 50 gr
+  "protector-solar-uv-sport-la-roche-posay-fps-50": 1, // Protector Solar UV Sport La Roche Posay FPS 50
+  "protector-solar-facial-con-color-fps-45-bagovit": 1, // Protector Solar Facial con Color FPS 45 Bagovit
+  "tratamiento-capiral-repair-absolute-loreal-paris": 1, // Tratamiento Capilar Repair Absolute L'Oréal Paris
+  "barra-cerave-stick-solar-invisible": 1, // Barra CeraVe Stick Solar Invisible
 
   // ---- Productos nuevos (todavía sin stock) ----
   "lipfillerrevox": 1,
