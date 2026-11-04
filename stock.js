@@ -63,7 +63,7 @@ const STOCK = {
   "protector-invisible-vichy-fps-50-fluido-hidratante": 1, // Protector Invisible Vichy FPS 50 Fluido Hidratante
   "protector-fluido-invisible-cerave-fps-50-x-50-ml": 1, // Protector Fluido Invisible CeraVe FPS 50 x 50 ml
   "protector-solar-facial-aveno-fps-50-x-50-gr": 1, // Protector Solar Facial Aveno FPS 50 x 50 gr
-  "protector-solar-uv-sport-la-roche-posay-fps-50": 1, // Protector Solar UV Sport La Roche Posay FPS 50
+  "protector-solar-uv-sport-la-roche-posay-fps-50": 2, // Protector Solar UV Sport La Roche Posay FPS 50
   "protector-solar-facial-con-color-fps-45-bagovit": 1, // Protector Solar Facial con Color FPS 45 Bagovit
   "tratamiento-capiral-repair-absolute-loreal-paris": 1, // Tratamiento Capilar Repair Absolute L'Oréal Paris
   "barra-cerave-stick-solar-invisible": 1, // Barra CeraVe Stick Solar Invisible
