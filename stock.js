@@ -41,8 +41,7 @@ const STOCK = {
   "spray-all-body-yara-150-ml": 1, // Spray all body Yara 150 ml
   "madagascar-centella-poremizing-mask": 1, // Madagascar Centella Poremizing Mask
 
-  /* ---- PRODUCTOS SIN STOCK AÚN (no tenían cantidad en el Excel) ----
-     Cuando tengas unidades, sacá las // y poné la cantidad.
+  // ---- PRODUCTOS SIN STOCK AÚN: cuando tengas unidades, cambiá el 0 por la cantidad ----
   "dermaglos-fps50": 0, // Protector Solar Corporal Dermaglós
   "bagovit-solar": 0, // Protector Solar Bagovit Solar Emulsión Hidratante
   "loreal-glycolic-bright": 0, // Crema Mate-Iluminadora L'Oréal Paris Glycolic-Bright
@@ -68,5 +67,21 @@ const STOCK = {
   "protector-solar-facial-con-color-fps-45-bagovit": 0, // Protector Solar Facial con Color FPS 45 Bagovit
   "tratamiento-capiral-repair-absolute-loreal-paris": 0, // Tratamiento Capilar Repair Absolute L'Oréal Paris
   "barra-cerave-stick-solar-invisible": 0, // Barra CeraVe Stick Solar Invisible
-  */
+
+  // ---- Productos nuevos (todavía sin stock) ----
+  "lipfillerrevox": 0,
+  "jabonuniformskindove": 0,
+  "aguamicelarlimpiadoracerave": 0,
+  "serumpurevitaminc10": 0,
+  "serumretinolb3laroche": 0,
+  "serumhyalub5laroche": 0,
+  "crematoleriane": 0,
+  "cremamelab3laroche": 0,
+  "balsamocicaplastreparador": 0,
+  "gelhidrataciondiariadermaglos": 0,
+  "cremagelpararojecesdermaglos": 0,
+  "serumvitaminacdermaglos": 0,
+  "serumtratamientocapilartresemme": 0,
+  "doveacnecontrol": 0,
+  "fructisgarnier": 0,
 };

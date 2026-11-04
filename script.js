@@ -229,8 +229,9 @@ function dibujarCarrito() {
   carrito.forEach((item) => {
     const li = document.createElement("li");
     li.className = "carrito-item";
+    const prod = PRODUCTOS.find((x) => x.id === item.id);
     li.innerHTML = `
-      <img src="${item.imagen}" alt="" onerror="this.onerror=null;this.src='imagenes/LogoMiaDistribuidora.png'">
+      <img src="${prod ? prod.imagen : item.imagen}" alt="" ${prod ? imgAttrs(prod) : `onerror="this.onerror=null;this.src='imagenes/LogoMiaDistribuidora.png'"`}>
       <div>
         <h4>${item.nombre}${item.variante ? `<small>${item.variante}</small>` : ""}</h4>
         <span class="precio">${formatoPrecio(item.precio * item.cantidad)}</span>
