@@ -53,7 +53,7 @@ const STOCK = {
   "corrector-rimmel-match-perfection-x-30-ml": 1, // Corrector Rimmel Match Perfection x 30 ml
   "aceite-oleo-de-palta-la-puissance": 1, // Aceite Oleo de Palta La Puissance
   "acqua-di-gioia-de-giorgio-armani-x-100-ml": 1, // Acqua Di Gioia de Giorgio Armani x 100 ml
-  "shine-killer-primer-x-20ml": 1, // Shine Killer Primer x 20ml
+  "shine-killer-primer-x-20ml": 0, // Shine Killer Primer x 20ml
   "acondicionador-anticaida-karsell-x-500-ml": 1, // Acondicionador Anticaida Karsell x 500 ml
   "mascara-nutritiva-la-puissance-x-250-ml": 1, // Mascara Nutritiva La Puissance x 250 ml
   "gel-limpieza-profunda-loreal-paris": 1, // Gel Limpieza Profunda L'Oréal Paris
